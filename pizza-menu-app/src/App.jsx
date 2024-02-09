@@ -53,23 +53,78 @@ const pizzaData = [
 
 function App() {
   return (
-    <div>
-      <h1>Hello React</h1>
-      <Pizza />
-      <Pizza />
-      <Pizza />
+    <div className="container">
+      <Header />
+      <Menu />
+      <Footer />
     </div>
   );
 }
 
-function Pizza() {
+function Header() {
+  // const style = {
+  //   color: "red",
+  //   fontSize: "32px",
+  //   textTransform: "uppercase",
+  // };
+  const style = {};
   return (
-    <div>
-      <img src="pizzas/spinaci.jpg" alt="Pizza Spinaci" />
-      <h2>Pizza Spinaci</h2>
-      <p>Tomato, mozarella, spinach, and ricotta cheese</p>
+    <header className="header">
+      <h1 style={style}>Fast React Pizza Company Co.</h1>
+    </header>
+  );
+}
+
+function Menu() {
+  return (
+    <main className="menu">
+      <h2>Our menu</h2>
+      <Pizza
+        name="Pizza Spinaci"
+        ingredient="Tomato, mozarella, spinach, and ricotta cheese"
+        photoName="pizzas/spinaci.jpg"
+        price={10}
+      />
+      <Pizza
+        name="Pizza Funghi"
+        ingredient="Tomato, mozarella, mushrooms"
+        photoName="pizzas/funghi.jpg"
+        price={12}
+      />
+    </main>
+  );
+}
+function Pizza(props) {
+  console.log(props);
+  return (
+    <div className="pizza">
+      <img src={props.photoName} alt={props.name} />
+      <div>
+        <h3>{props.name}</h3>
+        <p>{props.ingredient}</p>
+        <span>{props.price + 3}</span>
+      </div>
     </div>
   );
 }
+
+function Footer() {
+  const hour = new Date().getHours();
+  const openHour = 8;
+  const closeHour = 22;
+  const isOpen = hour >= openHour && hour <= closeHour;
+  console.log(isOpen);
+
+  // if (hour >= openHour && hour <= closeHour) alert("we are currently open!");
+  // else alert("Sorry we are closed");
+  return (
+    <footer className="footer">
+      {new Date().toLocaleTimeString()} We are currently open!!
+    </footer>
+    // 👆 if we open {} in jsx we enter in Javascript mode
+  );
+}
+
+// We combine small components in one big component in order to create our UI
 
 export default App;
